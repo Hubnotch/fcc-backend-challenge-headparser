@@ -20,19 +20,17 @@ app.get("/", function (req, res) {
 
 // your first API endpoint...
 app.get("/api/whoami", function (req, res) {
-  //let ['User-Agent',Accept-Language] = req.rawHeaders;
-  let headers = req.rawHeaders
-  let ipaddress = req.ip;
-  let language = headers[31];
-  let software = headers[15];
-
-  // console.table(headers);
   // console.log(req.headers);
 
+  /* 
+This was easier than the first challenge. Using the express docs is the trick
+*/
+
+  // const ['x-forwarded-for','accept-language','user-agent'] = req.headers
   res.json({
-    ipaddress: ipaddress,
-    language: language,
-    software: software,
+    ipaddress: req.ip,
+    language: req.headers["accept-language"],
+    software: req.headers["user-agent"],
   });
 });
 
